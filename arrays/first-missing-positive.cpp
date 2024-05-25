@@ -31,4 +31,4 @@ public:
         return numsMax+1;
         // return res;
     }
-};
+};  
