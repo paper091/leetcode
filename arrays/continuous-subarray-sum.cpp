@@ -1,31 +1,39 @@
 class Solution {
 public:
+    struct anotherVal{
+        int val = -1; // can be changed as per requirement 
+    };  
+    bool checkSubarraySum(vector<int>& nums, int k) {
 
-    bool brute(vector<int>& nums, int beg, int end, int k){
-        if(beg == end){
-            return false;
-        }
-
+        map<int, struct anotherVal> mods;
         int sum = 0;
-        for(int i = beg; i <= end; i++){
+        int m;
+        for(int i = 0; i < nums.size(); i++){
             sum += nums[i];
-            if(sum%k==0 && (i-beg+1)>1){
-                cout << beg << " " << i << " " << end << endl;
-                cout << sum << " " << k << endl << endl;
+            m = sum%k;
+            if(m == 0 && i > 0){
                 return true;
             }
-        }
+            // cout << m << " " << mods[m].val << endl;
+            if(mods[m].val == -1){
+                mods[m].val = i;
+            }
+            else{
+                if(abs(mods[m].val-i)>1){
+                    return true;
+                }
+                // else{
+                //     mods[m].val = -1;
+                // }
+            }
 
-        if( brute(nums, beg+1, end, k) ){
-            return true;
+            // if(mods[k-m].val != -1){
+            //     if( (abs(mods[k-m].val-i)+1) > 1 ){
+            //         return true;
+            //     }
+            // }
         }
-        if( brute(nums, beg, end-1, k) ){
-            return true;
-        }
-
+        // for(int )
         return false;
-    }
-    bool checkSubarraySum(vector<int>& nums, int k) {
-        return brute(nums, 0, nums.size()-1, k);
     }
 };
